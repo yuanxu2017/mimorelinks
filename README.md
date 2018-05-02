@@ -1,9 +1,9 @@
-# mi-aqara-sdk
+# mimorelinks
 
 小米(xiaomi)、绿米(aqara)、米家智能家庭(mijia)开发工具库。
 
 ## 背景
-`mi-morelinks`支持局域网通讯，使用的协议或机制主要有：udp协议，组播，AES加解密。
+`mimorelinks`支持局域网通讯，使用的协议或机制主要有：udp协议，组播，AES加解密。
 
 ## 基本使用
 
@@ -13,7 +13,7 @@
 	
 ### 使用
 
-	const MiAqara = require('mi-aqara-sdk');
+	const MiAqara = require('mimorelinks');
 	MiAqara.create(gateways, opts); // 创建
 	MiAqara.start(); // 启动
 
