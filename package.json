@@ -1,6 +1,6 @@
 {
   "name": "mimorelinks",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "小米(xiaomi)、绿米(aqara)、米家智能家庭(mijia)开发工具库。",
   "main": "index.js",
   "scripts": {

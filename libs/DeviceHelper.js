@@ -139,6 +139,28 @@ class DeviceHelper {
     }
 
     /**
+     * 读设备
+     *
+     * @param {String} gatewaySid 网关ID
+     * */
+    readGateway (gatewaySid) {
+        console.log('[DeviceHelper:readGateway] gatewaySid=%s', gatewaySid);
+        let gatewayHelper = this.platform.gatewayHelper;
+        if (gatewaySid) {
+            let gateway = gatewayHelper.getBySid(gatewaySid);
+            // console.log('gateway:',JSON.stringify(gateway));
+            if (gateway.ip && gateway.port) {
+                this.platform.send(gateway.ip, gateway.port, {
+                    cmd: 'read',
+                    sid: gatewaySid
+                });
+            }
+        } else {
+            console.error('[DeviceHelper:readGateway] sid:%s can not find gateway', gatewaySid);
+        }
+    }
+
+    /**
      * 批量读取
      * */
     readAll (sidList) {

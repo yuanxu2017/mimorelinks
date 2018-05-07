@@ -140,8 +140,9 @@ class GatewayHelper {
      * @param saturation 饱和度
      * @param brightness 亮度
      * */
-    controlLight({sid, power, hue, saturation, brightness}) {
+    controlLightPower({sid, power}) {
         let prepValue = 0;
+        let hue=0, saturation=0, brightness=0
         if(power) {
             if(!hue) {
                 hue = 0;
@@ -155,7 +156,78 @@ class GatewayHelper {
             let rgb = utils.hsb2rgb([hue, saturation/100, 1]);
             prepValue = parseInt(utils.dec2hex(brightness, 2) + utils.dec2hex(rgb[0], 2) + utils.dec2hex(rgb[1], 2) + utils.dec2hex(rgb[2], 2), 16);
         }
+        console.log('prepValue:',prepValue);
         this.write(sid, {rgb: prepValue});
+    }
+
+    /**
+     * 控制网关彩灯
+     * HSB颜色模式
+     * @param sid 网关设备ID
+     * @param hue 色相
+     * @param saturation 饱和度
+     * @param brightness 亮度
+     * */
+    controlLightHLS({sid, hue, saturation, brightness}) {
+        let prepValue = 0;
+
+        if(!hue) {
+            hue = 0;
+        }
+
+        if(!saturation) {
+            saturation = 0 * 100;
+        }
+        if(!brightness) {
+            brightness = 50;
+        }
+
+        if(hue > 100){
+            hue = 100;
+        }
+
+        if(saturation > 100){
+            saturation = 100;
+        }
+
+        if(brightness > 100){
+            brightness = 100;
+        }
+
+        let rgb = utils.hsb2rgb([hue, saturation/100, 1]);
+        prepValue = parseInt(utils.dec2hex(brightness, 2) + utils.dec2hex(rgb[0], 2) + utils.dec2hex(rgb[1], 2) + utils.dec2hex(rgb[2], 2), 16);
+        console.log('prepValue:',prepValue);
+        this.write(sid, {rgb: prepValue});
+    }
+
+    /**
+     * 控制网关彩灯
+     * HSB颜色模式
+     * @param sid 网关设备ID
+     * @param RGB 颜色
+     * */
+    controlLightRGB({sid, rgb}) {
+        let prepValue = 0;
+        if(rgb) {
+            prepValue = rgb;
+        }
+        this.write(sid, {rgb: prepValue});
+    }
+
+    /**
+     * 控制网关提示音
+     * MID 模式
+     * @param sid 网关设备ID
+     * @param mid 网关音乐0~8,10~13,20~29(为系统自带铃声),
+     *            10000(10000表示停止播放铃声),
+     *            >10001(大于10000的表示用户自定义的铃声)
+     * */
+    controlMid({sid, mid}) {
+        let prepValue = 1000;
+        if(mid) {
+            prepValue = mid;
+        }
+        this.write(sid, {mid: prepValue});
     }
 }
 
